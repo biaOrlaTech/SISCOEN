@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Colaboradores{% endblock %}
+
+{% block content %}
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6 text-blue-900">Lista de Colaboradores</h1>
+
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+      <table class="min-w-full text-sm text-left text-gray-600">
+        <thead class="bg-blue-800 text-white text-xs uppercase tracking-wider">
+          <tr>
+            <th scope="col" class="px-6 py-3">Nome</th>
+            <th scope="col" class="px-6 py-3">Categoria</th>
+            <th scope="col" class="px-6 py-3">Matrícula</th>
+            <th scope="col" class="px-6 py-3">COREN</th>
+            <th scope="col" class="px-6 py-3">Setor</th>
+            <th scope="col" class="px-6 py-3">Detalhes</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          {% for colaborador in colaboradores %}
+            <tr class="hover:bg-blue-50 transition">
+              <td class="px-6 py-4">{{ colaborador.nome }}</td>
+              <td class="px-6 py-4">{{ colaborador.categoria.nome }}</td>
+              <td class="px-6 py-4">{{ colaborador.matricula }}</td>
+              <td class="px-6 py-4">{{ colaborador.coren }}</td>
+              <td class="px-6 py-4">{{ colaborador.setor.nome }}</td>
+              <td class="px-6 py-4">
+                  <a href="{% url 'escala_colaborador' colaborador.id %}" class="text-blue-600 hover:underline">
+                      Ver Escala
+                  </a>
+              </td>  
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center text-red-600">Nenhum colaborador encontrado.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if is_paginated %}
+    <div class="mt-6 flex justify-center space-x-4">
+      {% if page_obj.has_previous %}
+        <a href="?page=1" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">« Início</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">← Anterior</a>
+      {% endif %}
+
+      <span class="px-4 py-2 bg-white border rounded">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Próxima →</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Fim »</a>
+      {% endif %}
+    </div>
+    {% endif %}
+      <a href="{% url 'escala_macro' %}" class="mt-6 inline-block text-blue-500 hover:text-blue-700">
+          &larr; Ver Escala Completa
+      </a>
+  </div>
+</body>
+</html>
+{% endblock %}

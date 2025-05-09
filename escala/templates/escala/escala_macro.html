@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Escala Macro{% endblock %}
+{% block content %}
+    <style>
+        .compact-table th,
+        .compact-table td {
+            width: 2.5rem;
+            min-width: 2.5rem;
+            padding: 0.25rem;
+            text-align: center;
+        }
+        .colaborador-col {
+        width: 12rem !important;
+        min-width: 12rem !important;
+        text-align: center !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        line-height: 1.2rem !important;
+        white-space: nowrap;
+    }
+    </style>
+<body class="bg-gray-100 text-gray-900">
+    <div class="max-w-full mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6 text-blue-900">Visão Macro da Escala - {{ mes }}</h1>
+        
+        <!-- Seletor de Mês -->
+        <form method="GET" class="mb-6">
+            <label for="mes" class="text-lg font-semibold text-gray-700">Selecione o mês:</label>
+            <select name="mes" id="mes" class="ml-2 px-4 py-2 border rounded">
+                {% for mes_num, mes_nome in meses %}
+                <option value="{{ mes_num }}" {% if mes_num == mes_selecionado %}selected{% endif %}>
+                    {{ mes_nome }}
+                </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="ml-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Atualizar</button>
+        </form>
+
+        <!-- Tabela de Escala -->
+        <div class="bg-white shadow-md rounded-lg mb-6 overflow-x-auto">
+            <table class="compact-table w-full">
+                <thead class="bg-blue-800 text-white">
+                    <tr>
+                        <th class="px-4 py-2 colaborador-col">Colaborador</th>
+                        {% for dia in dias %}
+                        <th class="text-[10px]">{{ dia }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in tabela_escala %}
+                    <tr class="hover:bg-blue-50 transition border-b border-gray-200">
+                        <td class="font-bold text-left px-4 py-1 align-top" style="line-height: 1.2rem;">
+                            <span class="text-[11px]">
+                                {{ linha.colaborador.split|slice:":2"|join:" " }}
+                            </span><br>
+                            <span class="text-[8px] text-gray-400">{{ linha.categoria }} - {{ linha.setor }}</span>
+                        </td>                        
+                        {% for turno in linha.dias %}
+                        <td>
+                            {% if turno == "F" %}
+                                <span class="text-gray-400 font-semibold">{{ turno }}</span>
+                                {% elif turno == "FE" %}
+                                <span class="text-yellow-500 font-semibold">{{ turno }}</span>
+                                {% elif turno == "AB" %}
+                                <span class="text-green-600 font-semibold">{{ turno }}</span>
+                                {% elif turno in "MTN" %}
+                                <span class="text-blue-700 font-semibold">{{ turno }}</span>
+                                {% else %}
+                                <span class="text-red-600 font-semibold">?</span>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Legenda -->
+        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
+            <ul class="grid grid-cols-6 gap-4 text-gray-700 text-center">
+                <li><span class="text-blue-700 font-semibold">M</span> - Manhã</li>
+                <li><span class="text-blue-700 font-semibold">T</span> - Tarde</li>
+                <li><span class="text-blue-700 font-semibold">N</span> - Noite</li>
+                <li><span class="text-green-600 font-semibold">AB</span> - Abono</li>
+                <li><span class="text-yellow-500 font-semibold">FE</span> - Férias</li>
+                <li><span class="text-gray-400 font-semibold">F</span> - Folga</li>
+            </ul>
+        </div>
+        <a href="{% url 'lista_colaboradores' %}" class="mt-6 inline-block text-blue-500 hover:text-blue-700">
+            &larr; Voltar para lista de colaboradores
+        </a>
+    </div>
+</body>
+</html>
+{% endblock %}
