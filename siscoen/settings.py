@@ -46,9 +46,9 @@ JAZZMIN_SETTINGS = {
     "site_title": "SISCOEN Admin",
     "site_header": "SISCOEN",
     "site_brand": "SISCOEN",
-    "site_logo": "/static/images/logo_uerj.png",
-    "login_logo": "/static/images/logo_colorida_uerj.png",
-    "login_logo_dark": "/static/images/logo_colorida_uerj.png",
+    "site_logo": "/images/logo_uerj.png",
+    "login_logo": "/images/logo_colorida_uerj.png",
+    "login_logo_dark": "/images/logo_colorida_uerj.png",
     "welcome_sign": "Bem-vindo ao Sistema de Controle de Escalas (SISCOEN)",
     "copyright": "SISCOEN - Beatriz Machado",
     "search_model": ["auth.User", "auth.Group"],
@@ -90,8 +90,8 @@ JAZZMIN_SETTINGS = {
     "related_modal_active": True,
 
     # Personalização do CSS e JS
-    "custom_css": "/static/jazzmin/css/custom.css",
-    "custom_js": "/static/jazzmin/js/custom.js",
+    "custom_css": "/jazzmin/css/custom.css",
+    "custom_js": "/jazzmin/js/custom.js",
     "use_google_fonts_cdn": True,
 
     # Formato do formulário de alteração
