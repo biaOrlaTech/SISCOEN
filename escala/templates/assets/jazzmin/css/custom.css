@@ -88,10 +88,11 @@ button:hover {
     justify-content: center;
     color: #ffffff !important;
     overflow: hidden;
-    background-color: #2c2c2c !important;
+    background: linear-gradient(135deg, #000000, #003366);
 }
 .jazzmin-login-page .card-body, .jazzmin-login-page .card{
     background-color: #ffffff13 !important;
+    border-radius: 30px;
 }
 
 /* Fundo com imagem e efeito de opacidade */
@@ -112,9 +113,7 @@ button:hover {
 }
 /* Título da página de login */
 .jazzmin-login-page .login-logo {
-    font-size: 2rem !important;
-    margin-bottom: 20px;
-    font-weight: bold;
+    max-width: 100%;
 }
 
 /* Botões de login */
@@ -135,4 +134,17 @@ html {
 
 .dropdown-item:focus, .dropdown-item:hover {
     color: #00274D;
+}
+/* Ajusta o tamanho da logo na tela de login */
+.login-logo h1 picture img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Ajuste para o modo escuro */
+.login-logo picture img{
+    width: 100px; /* Mesmo tamanho do modo claro */
+    height: auto;
+    max-width: 100%;
 }
